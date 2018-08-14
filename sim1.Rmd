@@ -1,0 +1,539 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# packages
+```{r}
+library(dplyr)
+library(data.table)
+```
+
+# 5 item sim
+```{r}
+# 5 items sub-list [[1]]. right-side focused thr
+simItemParams <- list()
+simItemParams[["5 items"]] <- list()
+simItemParams[["5 items"]][[1]] <- list()
+simItemParams[["5 items"]][[1]][["threshold"]] <- c(-3, -1.5, 0, 1.5, 3)
+simItemParams[["5 items"]][[1]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[1]][["weights"]] <- c(.25, .5, 1, 1.5, 1.75)
+simItemParams[["5 items"]][[1]][["infoLoc"]] <- "Right"
+# 5 items sub-list [[2]]. left-side focused thr
+simItemParams[["5 items"]][[2]] <- list()
+simItemParams[["5 items"]][[2]][["threshold"]] <- c(3, 1.5, 0, -1.5, -3)
+simItemParams[["5 items"]][[2]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[2]][["weights"]] <- c(.25, .5, 1, 1.5, 1.75)
+simItemParams[["5 items"]][[2]][["infoLoc"]] <- "Left"
+# 5 items sub-list [[3]]. tails focused thr
+simItemParams[["5 items"]][[3]] <- list()
+simItemParams[["5 items"]][[3]][["threshold"]] <- c(0, 1.5, -1.5, 3, -3)
+simItemParams[["5 items"]][[3]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[3]][["weights"]] <- c(.25, .5, 1, 1.5, 1.75)
+simItemParams[["5 items"]][[3]][["infoLoc"]] <- "Tails"
+# 5 items sub-list [[4]]. centered thr
+simItemParams[["5 items"]][[4]] <- list()
+simItemParams[["5 items"]][[4]][["threshold"]] <- c(-3, 3, 1.5, -1.5, 0)
+simItemParams[["5 items"]][[4]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[4]][["weights"]] <- c(.25, .5, 1, 1.5, 1.75)
+simItemParams[["5 items"]][[4]][["infoLoc"]] <- "Centered"
+# 5 items sub-list [[5]]
+simItemParams[["5 items"]][[5]] <- list()
+simItemParams[["5 items"]][[5]][["threshold"]] <- c(-3, -1.5, 0, 1.5, 3)
+simItemParams[["5 items"]][[5]][["slope"]] <- c(2,2,2,2,2)
+simItemParams[["5 items"]][[5]][["weights"]] <- c(.25, .5, 1, 1.5, 1.75)
+simItemParams[["5 items"]][[5]][["infoLoc"]] <- "Same slopes"
+# 6 items sub-list [[6]]
+simItemParams[["5 items"]][[6]] <- list()
+simItemParams[["5 items"]][[6]][["threshold"]] <- c(-3, -1.5, 0, 1.5, 3)
+simItemParams[["5 items"]][[6]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[6]][["weights"]] <- c(1.75, 1.5, 1, .5, .25)
+simItemParams[["5 items"]][[6]][["infoLoc"]] <- "Right"
+# 7 items sub-list [[7]]
+simItemParams[["5 items"]][[7]] <- list()
+simItemParams[["5 items"]][[7]][["threshold"]] <- c(3, 1.5, 0, -1.5, -3)
+simItemParams[["5 items"]][[7]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[7]][["weights"]] <- c(1.75, 1.5, 1, .5, .25)
+simItemParams[["5 items"]][[7]][["infoLoc"]] <- "Left"
+# 8 items sub-list [[8]]
+simItemParams[["5 items"]][[8]] <- list()
+simItemParams[["5 items"]][[8]][["threshold"]] <- c(0, 1.5, -1.5, 3, -3)
+simItemParams[["5 items"]][[8]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[8]][["weights"]] <- c(1.75, 1.5, 1, .5, .25)
+simItemParams[["5 items"]][[8]][["infoLoc"]] <- "Tails"
+# 9 items sub-list [[9]]. centered thr
+simItemParams[["5 items"]][[9]] <- list()
+simItemParams[["5 items"]][[9]][["threshold"]] <- c(-3, 3, 1.5, -1.5, 0)
+simItemParams[["5 items"]][[9]][["slope"]] <- c(1, 1.5, 2, 2.5, 3)
+simItemParams[["5 items"]][[9]][["weights"]] <- c(1.75, 1.5, 1, .5, .25)
+simItemParams[["5 items"]][[9]][["infoLoc"]] <- "Centered"
+# 10 items sub-list [[10]]
+simItemParams[["5 items"]][[10]] <- list()
+simItemParams[["5 items"]][[10]][["threshold"]] <- c(-3, -1.5, 0, 1.5, 3)
+simItemParams[["5 items"]][[10]][["slope"]] <- c(2,2,2,2,2)
+simItemParams[["5 items"]][[10]][["weights"]] <- c(1.75, 1.5, 1, .5, .25)
+simItemParams[["5 items"]][[10]][["infoLoc"]] <- "Same slopes"
+
+```
+
+# 3 item
+```{r}
+# 3 items sub-list [[3]]. tails focused thr
+simItemParams[["3 items"]][[1]] <- list()
+simItemParams[["3 items"]][[1]][["threshold"]] <- c(0, 2, -2)
+simItemParams[["3 items"]][[1]][["slope"]] <- c(1, 2, 3)
+simItemParams[["3 items"]][[1]][["weights"]] <- c(.5, 1, 1.5)
+simItemParams[["3 items"]][[1]][["infoLoc"]] <- "Tails right"
+# 3 items sub-list [[3]]. tails focused thr
+simItemParams[["3 items"]][[2]] <- list()
+simItemParams[["3 items"]][[2]][["threshold"]] <- c(-2, 2, 0)
+simItemParams[["3 items"]][[2]][["slope"]] <- c(1, 2, 3)
+simItemParams[["3 items"]][[2]][["weights"]] <- c(.5, 1, 1.5)
+simItemParams[["3 items"]][[2]][["infoLoc"]] <- "Tails left"
+# 3 items sub-list [[4]]. centered thr
+simItemParams[["3 items"]][[3]] <- list()
+simItemParams[["3 items"]][[3]][["threshold"]] <- c(-2, 0, 2)
+simItemParams[["3 items"]][[3]][["slope"]] <- c(1, 2, 3)
+simItemParams[["3 items"]][[3]][["weights"]] <- c(.5, 1, 1.5)
+simItemParams[["3 items"]][[3]][["infoLoc"]] <- "Centered"
+# 3 items sub-list [[5]]
+simItemParams[["3 items"]][[4]] <- list()
+simItemParams[["3 items"]][[4]][["threshold"]] <- c(-2, 0, 2)
+simItemParams[["3 items"]][[4]][["slope"]] <- c(2,2,2)
+simItemParams[["3 items"]][[4]][["weights"]] <- c(.5, 1, 1.5)
+simItemParams[["3 items"]][[4]][["infoLoc"]] <- "Same slopes"
+
+# 3 items sub-list [[3]]. tails focused thr
+simItemParams[["3 items"]][[5]] <- list()
+simItemParams[["3 items"]][[5]][["threshold"]] <- c(0, 2, -2)
+simItemParams[["3 items"]][[5]][["slope"]] <- c(1, 2, 3)
+simItemParams[["3 items"]][[5]][["weights"]] <- c(1, .5, 1.5)
+simItemParams[["3 items"]][[5]][["infoLoc"]] <- "Tails right"
+# 3 items sub-list [[3]]. tails focused thr
+simItemParams[["3 items"]][[6]] <- list()
+simItemParams[["3 items"]][[6]][["threshold"]] <- c(-2, 2, 0)
+simItemParams[["3 items"]][[6]][["slope"]] <- c(1, 2, 3)
+simItemParams[["3 items"]][[6]][["weights"]] <- c(1, .5, 1.5)
+simItemParams[["3 items"]][[6]][["infoLoc"]] <- "Tails left"
+# 3 items sub-list [[4]]. centered thr
+simItemParams[["3 items"]][[7]] <- list()
+simItemParams[["3 items"]][[7]][["threshold"]] <- c(-2, 0, 2)
+simItemParams[["3 items"]][[7]][["slope"]] <- c(1, 2, 3)
+simItemParams[["3 items"]][[7]][["weights"]] <- c(1, .5, 1.5)
+simItemParams[["3 items"]][[7]][["infoLoc"]] <- "Centered"
+# 3 items sub-list [[5]
+simItemParams[["3 items"]][[8]] <- list()
+simItemParams[["3 items"]][[8]][["threshold"]] <- c(-2, 0, 2)
+simItemParams[["3 items"]][[8]][["slope"]] <- c(2,2,2)
+simItemParams[["3 items"]][[8]][["weights"]] <- c(1, .5, 1.5)
+simItemParams[["3 items"]][[8]][["infoLoc"]] <- "Same slopes"
+
+# 3 items sub-list [[5]
+simItemParams[["3 items"]][[9]] <- list()
+simItemParams[["3 items"]][[9]][["threshold"]] <- c(-1.5, -1, 2)
+simItemParams[["3 items"]][[9]][["slope"]] <- c(.75, 1, 1.5)
+simItemParams[["3 items"]][[9]][["weights"]] <- c(.5, 1, 1.5)
+simItemParams[["3 items"]][[9]][["infoLoc"]] <- "Same slopes"
+```
+
+```{r}
+brianSimFun <- function(x) {
+  out <- list()
+  for(i in 1:length(x)) {
+    out[[i]] <- list()
+    out[[i]][["threshold"]] <- x[[i]][["threshold"]]
+    out[[i]][["slope"]] <- x[[i]][["slope"]]    
+    out[[i]][["weights"]] <- x[[i]][["weights"]] 
+    out[[i]][["simOutput"]] <- wssR(theta = theta,
+                thr = x[[i]][["threshold"]],
+                sl = x[[i]][["slope"]],
+                wt = x[[i]][["weights"]])
+  }
+
+  return(out)
+}
+
+
+wssR(theta = theta,
+                thr = simItemParams[["5 items"]][[1]]$threshold,
+                sl = simItemParams[["5 items"]][[1]][["slope"]],
+                wt = simItemParams[["5 items"]][[1]][["weights"]])
+forBrian <- brianSimFun(simItemParams[["5 items"]])
+forBrian[[1]]
+```
+
+# Works Great!! just missing ItemLoc
+```{r}
+brianSimFun2 <- function(x) {
+  out <- list()
+  for(i in 1:length(x)) {
+    out[[i]] <- list()
+    out[[i]][["threshold"]] <- x[[i]][["threshold"]]
+    out[[i]][["slope"]] <- x[[i]][["slope"]]    
+    out[[i]][["weights"]] <- x[[i]][["weights"]] 
+    out[[i]][["simOutput"]] <- wssR(theta = theta,
+                thr = x[[i]][["threshold"]],
+                sl = x[[i]][["slope"]],
+                wt = x[[i]][["weights"]])
+    
+    # extractiong the Weighting Scheme info names
+    `Weighting Scheme info names` <- names(out[[i]][["simOutput"]]$`Weighting Scheme info`)
+    
+    # temp vectors containing 
+    thrNames <- character()
+    slopeNames <- character()
+    weightNames <- character()
+    for(j in 1:length(x[[i]][["slope"]])) {
+      thrNames[j] <- paste("b",j, sep = "")
+      slopeNames[j] <- paste("a",j, sep = "")
+      weightNames[j] <- paste("weight",j, sep = "")      
+    }
+    
+   # names for output for brian
+   testLevelOutNames <- c(`Weighting Scheme info names`,
+                               thrNames,
+                               slopeNames,
+                               weightNames)
+   
+   # output for brian
+   testLevelOut <- c(as.numeric(out[[i]][["simOutput"]]$`Weighting Scheme info`),
+                     x[[i]][["threshold"]],
+                     x[[i]][["slope"]],
+                     x[[i]][["weights"]])
+   names(testLevelOut) <- testLevelOutNames
+   out[[i]][["testLevelOut"]] <- testLevelOut
+  }
+  
+  outMatrix <- matrix(nrow = length(x),
+                      ncol = length(out[[1]][["testLevelOut"]]))
+  for(i in 1:length(x)) {
+    outMatrix[i,] <- as.numeric(out[[i]][["testLevelOut"]])
+  }
+  outDf <- as.data.frame(outMatrix)
+  names(outDf) <- names(out[[1]][["testLevelOut"]])
+  return(outDf)
+}
+forBrian <- brianSimFun2(simItemParams[["5 items"]])
+aa <- c(forBrian[[1]]$threshold,
+        forBrian[[1]]$weights)
+aa <- forBrian[[1]]$testLevelOut
+length(aa)
+simItemParams[["5 items"]][["itemLoc"]]
+itemLoc <- c(rep("a", 5), rep("b", 5))
+forBrian2 <- cbind(forBrian, itemLoc)
+```
+# Extract test level info
+```{r}
+brianTestLevel <- function(x) {
+  out <- list()
+  for(i in 1:length(x)) {
+    out[[i]] <- list()
+    out[[i]][["threshold"]] <- x[[i]][["threshold"]]
+    out[[i]][["slope"]] <- x[[i]][["slope"]]    
+    out[[i]][["weights"]] <- x[[i]][["weights"]] 
+    out[[i]][["simOutput"]] <- wssR(theta = theta,
+                thr = x[[i]][["threshold"]],
+                sl = x[[i]][["slope"]],
+                wt = x[[i]][["weights"]])
+    
+    # extractiong the Weighting Scheme info names
+    `Weighting Scheme info names` <- names(out[[i]][["simOutput"]]$`Weighting Scheme info`)
+    
+    # temp vectors containing 
+    thrNames <- character()
+    slopeNames <- character()
+    weightNames <- character()
+    for(j in 1:length(x[[j]][["slope"]])) {
+      thrNames[j] <- paste("b",j, sep = "")
+      slopeNames[j] <- paste("a",j, sep = "")
+      weightNames[j] <- paste("weight",j, sep = "")      
+    }
+    
+   # names for output for brian
+   testLevelOutNames <- c(`Weighting Scheme info names`,
+                               thrNames,
+                               slopeNames,
+                               weightNames)
+   
+   # output for brian
+   testLevelOut <- c(as.numeric(out[[i]][["simOutput"]]$`Weighting Scheme info`),
+                     x[[i]][["threshold"]],
+                     x[[i]][["slope"]],
+                     x[[i]][["weights"]])
+   names(testLevelOut) <- testLevelOutNames
+   out[[i]][["testLevelOut"]] <- testLevelOut
+  }
+  
+  outMatrix <- matrix(nrow = length(x),
+                      ncol = length(out[[1]][["testLevelOut"]]))
+  # getting all testLevelOuts from the main list and putting it into a mat
+  for(i in 1:length(x)) {
+    outMatrix[i,] <- as.numeric(out[[i]][["testLevelOut"]])
+  }
+  outDf <- as.data.frame(outMatrix)
+  names(outDf) <- names(out[[1]][["testLevelOut"]])
+  
+  infoLoc <- character()
+  for(i in 1:length(x)) {
+    infoLoc[i] <- x[[i]][["infoLoc"]]
+  }
+  
+  outDf2 <- cbind(infoLoc,
+                  outDf)
+  return(outDf2)
+}
+
+forBrian <- brianTestLevel(simItemParams[["5 items"]])
+forBrian$`RP mtr` == forBrian$`USS mtr`
+#data.table::fwrite(forBrian, "forBrian2.csv")
+```
+
+# extract rp level information
+```{r}
+brianRpLevel <- function(x) {
+  out <- list()
+  for(i in 1:length(x)) {
+    out[[i]] <- list()
+    out[[i]][["threshold"]] <- x[[i]][["threshold"]]
+    out[[i]][["slope"]] <- x[[i]][["slope"]]    
+    out[[i]][["weights"]] <- x[[i]][["weights"]] 
+    out[[i]][["simOutput"]] <- wssR(theta = theta,
+                thr = x[[i]][["threshold"]],
+                sl = x[[i]][["slope"]],
+                wt = x[[i]][["weights"]])
+    
+    # extractiong the Weighting Scheme info names
+    `Weighting Scheme info names` <- names(out[[i]][["simOutput"]]$`Weighting Scheme info`)
+    
+    # temp vectors containing 
+    thrNames <- character()
+    slopeNames <- character()
+    weightNames <- character()
+    for(j in 1:length(x[[i]][["slope"]])) {
+      thrNames[j] <- paste("b ",j, sep = "")
+      slopeNames[j] <- paste("a ",j, sep = "")
+      weightNames[j] <- paste("weight ",j, sep = "")      
+    }
+    
+   # names for output for brian
+   testLevelOutNames <- c(`Weighting Scheme info names`,
+                               thrNames,
+                               slopeNames,
+                               weightNames)
+   
+   # output for brian
+   testLevelOut <- c(as.numeric(out[[i]][["simOutput"]]$`Weighting Scheme info`),
+                     x[[i]][["threshold"]],
+                     x[[i]][["slope"]],
+                     x[[i]][["weights"]])
+   names(testLevelOut) <- testLevelOutNames
+   out[[i]][["testLevelOut"]] <- testLevelOut
+   
+   # rp data bind 
+   rpOut <- c(out[[i]][["simOutput"]][["outList"]][["allScores"]],
+              out[[i]][["simOutput"]][["outList"]][["uncollapsed_wEAP"]],
+              out[[i]][["simOutput"]][["outList"]][["rpEAP"]])
+   out[[i]][["rpOut"]] <- rpOut
+   
+   # rp names
+    wss_Names <- character()
+    wEAP_Names <- character()
+    rpEAP_Names <- character()
+    for(j in 1:length(out[[i]][["simOutput"]][["outList"]][["allScores"]])) {
+      wss_Names[j] <- paste("wss ",j, sep = "")
+      wEAP_Names[j] <- paste("wEAP ",j, sep = "")
+      rpEAP_Names[j] <- paste("rpEAP ",j, sep = "")      
+    }   
+    
+    rpNames <- c(wss_Names,
+                wEAP_Names,
+                rpEAP_Names)
+    out[[i]][["rpNames"]] <- rpNames
+   ### END INITIAL FOR LOOP
+  }
+  
+  outMatrix <- matrix(nrow = length(x),
+                      ncol = length(out[[1]][["testLevelOut"]]))
+  # getting all testLevelOuts from the main list and putting it into a mat
+  for(i in 1:length(x)) {
+    outMatrix[i,] <- as.numeric(out[[i]][["testLevelOut"]])
+  }
+  outDf <- as.data.frame(outMatrix)
+  names(outDf) <- names(out[[1]][["testLevelOut"]])
+  
+  infoLoc <- character()
+  for(i in 1:length(x)) {
+    infoLoc[i] <- x[[i]][["infoLoc"]]
+  }
+  
+  # createing matrix that contains rp info. so wss, wEAP, and rpEAP
+  rpMatrix <- matrix(nrow = length(x),
+                     ncol = length(out[[1]][["rpOut"]]))
+  # puting rp info into matrix
+  for(i in 1:length(x)) {
+    rpMatrix[i,] <- out[[i]][["rpOut"]]
+  }
+  rpDf <- as.data.frame(rpMatrix)
+  names(rpDf) <- out[[1]][["rpNames"]]
+  
+  outDf2 <- cbind(infoLoc,
+                  outDf,
+                  rpDf)
+  
+  return(outDf2)
+}
+forBrian <- brianRpLevel(simItemParams[["5 items"]])
+forBrian[[5]][["rpOut"]] - forBrian[[1]][["rpOut"]]
+str(forBrian)
+forBrian[[1]][["rpNames"]]
+#data.table::fwrite(forBrian, "forBrian2.csv")
+```
+
+# extract rp level information
+```{r}
+brianRpLevel2 <- function(x) {
+  out <- list()
+  for(i in 1:length(x)) {
+    out[[i]] <- list()
+    out[[i]][["threshold"]] <- x[[i]][["threshold"]]
+    out[[i]][["slope"]] <- x[[i]][["slope"]]    
+    out[[i]][["weights"]] <- x[[i]][["weights"]] 
+    out[[i]][["simOutput"]] <- wssR(theta = theta,
+                thr = x[[i]][["threshold"]],
+                sl = x[[i]][["slope"]],
+                wt = x[[i]][["weights"]])
+    
+    # extractiong the Weighting Scheme info names
+    `Weighting Scheme info names` <- names(out[[i]][["simOutput"]]$`Weighting Scheme info`)
+    
+    # temp vectors containing 
+    thrNames <- character()
+    slopeNames <- character()
+    weightNames <- character()
+    imrNames <- character()
+    for(j in 1:length(x[[i]][["slope"]])) {
+      thrNames[j] <- paste("b ",j, sep = "")
+      slopeNames[j] <- paste("a ",j, sep = "")
+      weightNames[j] <- paste("weight ",j, sep = "")
+      imrNames[j] <- paste("imr ",j, sep = "")      
+    }
+    
+   # names for output for brian
+   testLevelOutNames <- c(`Weighting Scheme info names`,
+                               thrNames,
+                               slopeNames,
+                               weightNames,
+                               imrNames)
+   
+   # output for brian
+   testLevelOut <- c(as.numeric(out[[i]][["simOutput"]]$`Weighting Scheme info`),
+                     x[[i]][["threshold"]],
+                     x[[i]][["slope"]],
+                     x[[i]][["weights"]],
+                     as.numeric(out[[i]][["simOutput"]][["outList"]][["imr"]]))
+   names(testLevelOut) <- testLevelOutNames
+   out[[i]][["testLevelOut"]] <- testLevelOut
+   
+   # rp data bind 
+   rpOut <- c(out[[i]][["simOutput"]][["outList"]][["allScores"]],
+              out[[i]][["simOutput"]][["outList"]][["uncollapsed_wEAP"]],
+              out[[i]][["simOutput"]][["outList"]][["rpEAP"]])
+   out[[i]][["rpOut"]] <- rpOut
+   
+   # rp names
+    wss_Names <- character()
+    wEAP_Names <- character()
+    rpEAP_Names <- character()
+    for(j in 1:length(out[[i]][["simOutput"]][["outList"]][["allScores"]])) {
+      wss_Names[j] <- paste("wss ",j, sep = "")
+      wEAP_Names[j] <- paste("wEAP ",j, sep = "")
+      rpEAP_Names[j] <- paste("rpEAP ",j, sep = "")      
+    }   
+    
+    rpNames <- c(wss_Names,
+                wEAP_Names,
+                rpEAP_Names)
+    out[[i]][["rpNames"]] <- rpNames
+   ### END INITIAL FOR LOOP
+  }
+  
+  outMatrix <- matrix(nrow = length(x),
+                      ncol = length(out[[1]][["testLevelOut"]]))
+  # getting all testLevelOuts from the main list and putting it into a mat
+  for(i in 1:length(x)) {
+    outMatrix[i,] <- as.numeric(out[[i]][["testLevelOut"]])
+  }
+  outDf <- as.data.frame(outMatrix)
+  names(outDf) <- names(out[[1]][["testLevelOut"]])
+  
+  infoLoc <- character()
+  for(i in 1:length(x)) {
+    infoLoc[i] <- x[[i]][["infoLoc"]]
+  }
+  
+  # createing matrix that contains rp info. so wss, wEAP, and rpEAP
+  rpMatrix <- matrix(nrow = length(x),
+                     ncol = length(out[[1]][["rpOut"]]))
+  # puting rp info into matrix
+  for(i in 1:length(x)) {
+    rpMatrix[i,] <- out[[i]][["rpOut"]]
+  }
+  rpDf <- as.data.frame(rpMatrix)
+  names(rpDf) <- out[[1]][["rpNames"]]
+  
+  outDf2 <- cbind(infoLoc,
+                  outDf,
+                  rpDf)
+  out2 <- list()
+  out2[[1]] <- out
+  out2[[2]] <- outDf2
+  return(out2)
+}
+forBrian <- brianRpLevel2(simItemParams[["5 items"]])
+cor(simItemParams[["5 items"]][[5]]$slope,
+    c(.5, .25, .75, 1, 1.25))
+forBrian[[5]][["rpOut"]] - forBrian[[1]][["rpOut"]]
+str(forBrian)
+forBrian[[1]][["rpNames"]]
+#data.table::fwrite(forBrian, "forBrian2.csv")
+```
+7/30/18 - checking cor of imr with weights
+```{r}
+
+forBrian <- brianRpLevel2(simItemParams[["3 items"]])
+
+forBrian[[1]][[9]]$simOutput$outList$unsummedScores
+plot(theta,
+     forBrian[[1]][[9]]$simOutput$outList$unsummedScores[7,1:21])
+lines(theta,
+     forBrian[[1]][[9]]$simOutput$outList$unsummedScores[2,1:21])
+
+```
+
+# checking more into why the RP mtr and USS mtr is the same when slopes 
+# are the same
+## sim params 2 
+
+
+# 3 item sim results
+```{r}
+forBrianNew <- brianRpLevel2(simItemParams[["5 items"]])
+forBrianNew[[1]][[9]]$simOutput$outList$df_aggregated_uncollapsed
+forBrianNew[[1]][[9]]$simOutput$outList$allTlines
+
+
+plot(theta,
+     forBrianNew[[1]][[9]]$simOutput$outList$allLik[17,2:22])
+lines(theta,
+     forBrianNew[[1]][[9]]$simOutput$outList$allLik[10,2:22])
+lines(theta,
+     forBrianNew[[1]][[9]]$simOutput$outList$allLik[10,2:22])
+```
+
+
+```{r}
+foo <- simFun1(simItemParams[["3 items"]])
+foo2 <- foo[[2]]
+foo[[1]]
+```
+
