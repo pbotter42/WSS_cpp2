@@ -52,17 +52,27 @@ uncollapsed_wEAP_cal <- function(x,
 }
 
 ### rpPatternExtract ###
-rpPatternExtract <- function(x) {
-  out <- character(length = length(x))
-  # looping through all responses in LW iter 1 through n
-  for(i in 1:length(x)) {
-    for(j in 1:length(x[[1]])) {
-      if (x[[i]][j] == 0) {
-        out[i] <- paste(out[i],"0",sep = "")
-      } 
-      else 
-        out[i] <- paste(out[i],"1",sep = "")
+rpPatternExtract <- function(x, type = "LW") {
+  
+  if(type == "LW") {
+    # looping through all responses in LW iter 1 through n
+    out <- character(length = length(x))
+    for(i in 1:length(x)) {
+      for(j in 1:length(x[[1]])) {
+        if (x[[i]][j] == 0) {
+          out[i] <- paste(out[i],"0",sep = "")
+        } 
+        else 
+          out[i] <- paste(out[i],"1",sep = "")
+      }
     }
+  } else { # for types other than LW, where the rp are in a matrix
+    out <- character(length = nrow(x))
+    for(i in 1:nrow(x)) { # i = the ith testee
+      for(j in 1:ncol(x)) { # j = the jth item
+        out[i] <- paste(out[i],x[i,j],sep = "")
+      }
+    }  
   }
   return(out)
 }
@@ -239,4 +249,14 @@ fullTest <- function(theta,
   
   
   return(marginalTestReliability)
+}
+
+
+### cal imr
+imrCal <- function(info, dist) {
+  out <- numeric()
+  for(i in 1:nrow(info)) {
+    out[i] <- sum(info[i,]*dist) 
+  }
+  return(out)
 }
