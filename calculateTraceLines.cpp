@@ -20,8 +20,8 @@ List calculateTraceLines(NumericVector theta,
     
     // calculating tlines
     //for(int qp = 0; qp < nQuad; ++qp) {
-      pTline = 1/(1+exp(-sl[itemCounter]*(theta-thr[itemCounter])));
-      qTline = 1-pTline;
+    pTline = 1/(1+exp(-(thr[itemCounter] + sl[itemCounter] * theta)));
+    qTline = 1-pTline;
     //}
     
     double pWeight = wt[itemCounter]; // weight for item x for the correct response
